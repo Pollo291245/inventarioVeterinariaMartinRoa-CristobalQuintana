@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'gestorUsuario/styles.css' %}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <title>Registro Veterinaria</title>
+</head>
+<body>
+  <div class="login-container">
+    <div class="logo-container">
+      <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#e8eaed"><path d="M169.86-485Q132-485 106-511.14t-26-64Q80-613 106.14-639t64-26Q208-665 234-638.86t26 64Q260-537 233.86-511t-64 26Zm185-170Q317-655 291-681.14t-26-64Q265-783 291.14-809t64-26Q393-835 419-808.86t26 64Q445-707 418.86-681t-64 26Zm250 0Q567-655 541-681.14t-26-64Q515-783 541.14-809t64-26Q643-835 669-808.86t26 64Q695-707 668.86-681t-64 26Zm185 170Q752-485 726-511.14t-26-64Q700-613 726.14-639t64-26Q828-665 854-638.86t26 64Q880-537 853.86-511t-64 26ZM266-75q-42 0-69-31.53-27-31.52-27-74.47 0-42 25.5-74.5T250-318q22-22 41-46.5t36-50.5q29-44 65-82t88-38q52 0 88.5 38t65.5 83q17 26 35.5 50t40.5 46q29 30 54.5 62.5T790-181q0 42.95-27 74.47Q736-75 694-75q-54 0-107-9t-107-9q-54 0-107 9t-107 9Z"/></svg>
+    </div>
+    <div class="container">
+      <h2 class="titulo">Registro Veterinaria</h2>
+      <p class="subtitulo">Crea una cuenta para continuar</p>
+
+      <form method="post" class="formulario registro-form">
+        {% csrf_token %}
+        <div class="input-group">
+        <span class="input-label">Usuario</span>
+        <i class="bi bi-person input-icon"></i>
+
+          {{ form.username }}
+          {% if form.username.errors %}
+            <div class="error-message">
+              {% for error in form.username.errors %}
+                {{ error }}
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+        <div class="input-group">
+          <i class="bi bi-lock-fill input-icon"></i>
+          <span class="input-label">Contraseña</span>
+          {{ form.password1 }}
+          {% if form.password1.errors %}
+            <div class="error-message">
+              {% for error in form.password1.errors %}
+                {{ error }}
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+        <div class="input-group">
+          <i class="bi bi-lock-fill input-icon"></i>
+          <span class="input-label">Repetir Contraseña</span>
+          {{ form.password2 }}
+          {% if form.password2.errors %}
+            <div class="error-message">
+              {% for error in form.password2.errors %}
+                {{ error }}
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+        <button type="submit" class="btn-submit">
+          <i class="bi bi-person-add"></i>
+          Registrarse
+        </button>
+      </form>
+
+
+      <div class="form-footer">
+        <p>¿Ya tienes una cuenta? <a href="{% url 'login' %}" class="link-login">Inicia sesión aquí</a></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

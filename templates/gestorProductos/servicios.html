@@ -1,0 +1,93 @@
+{% extends 'base/base.html' %}
+
+{% block titulo %}
+Servicios - Veterinaria
+{% endblock titulo %}
+
+{% block contenido %}
+<div class="container py-4">
+    <section class="mb-5">
+        <h2 class="text-primary mb-4"><i class="bi bi-box-seam-fill me-2"></i>Productos Destacados</h2>
+        {% if productos %}
+            <div class="row g-4">
+                {% for producto in productos %}
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title"><i class="bi bi-box2-heart-fill me-2"></i>{{ producto.nombre }}</h5>
+                                <p class="card-text">{{ producto.descripcion }}</p>
+                                <p class="text-primary fw-bold">${{ producto.precio }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 text-center">
+                        <div class="card shadow-sm">
+                            <div class="card-body py-5">
+                                <i class="bi bi-box2-fill text-secondary mb-3" style="font-size: 4rem;"></i>
+                                <h2 class="card-title mb-3">No hay productos disponibles</h2>
+                                <p class="card-text text-muted mb-4">Lo sentimos, en este momento no hay productos disponibles.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </section>
+    <section class="mb-5">
+        <h2 class="text-primary mb-4"><i class="bi bi-calendar-fill me-2"></i>Próximas Citas Disponibles</h2>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center">
+                    <div class="card shadow-sm">
+                        <div class="card-body py-5">
+                            <i class="bi bi-calendar-heart-fill text-secondary mb-3" style="font-size: 4rem;"></i>
+                            <h2 class="card-title mb-3">No hay citas disponibles</h2>
+                            <p class="card-text text-muted mb-4">Lo sentimos, en este momento no hay horarios disponibles para agendar citas.</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <section>
+        <h2 class="text-primary mb-5"><i class="bi bi-star-fill me-2"></i>Servicios Especiales</h2>
+        <div class="row g-4 mb-5">
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="bi bi-scissors me-2"></i>Peluquería Canina</h5>
+                        <p class="card-text">Servicio completo de peluquería para tu mascota.</p>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check2 text-success me-2"></i>Baño y secado</li>
+                            <li><i class="bi bi-check2 text-success me-2"></i>Corte de pelo</li>
+                            <li><i class="bi bi-check2 text-success me-2"></i>Corte de uñas</li>
+                        </ul>
+                        <p class="text-primary fw-bold">Desde $25.990</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="bi bi-building me-2"></i>Hospedaje</h5>
+                        <p class="card-text">Cuidamos de tu mascota mientras estás fuera.</p>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check2 text-success me-2"></i>Alimentación incluida</li>
+                            <li><i class="bi bi-check2 text-success me-2"></i>Paseos diarios</li>
+                            <li><i class="bi bi-check2 text-success me-2"></i>Supervisión veterinaria</li>
+                        </ul>
+                        <p class="text-primary fw-bold">Desde $15.990 por día</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock contenido %}

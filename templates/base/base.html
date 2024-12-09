@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}Veterinaria{% endblock titulo %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'base/styles.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+    {% block navbar %}
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M180-475q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29Zm180-160q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29Zm240 0q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29Zm180 160q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM266-75q-45 0-75.5-34.5T160-191q0-52 35.5-91t70.5-77q29-31 50-67.5t50-68.5q22-26 51-43t63-17q34 0 63 16t51 42q28 32 49.5 69t50.5 69q35 38 70.5 77t35.5 91q0 47-30.5 81.5T694-75q-54 0-107-9t-107-9q-54 0-107 9t-107 9Z"/></svg>
+                Veterinaria
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/"><i class="bi bi-house-heart-fill"></i> Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'servicios' %}"><i class="bi bi-star-fill"></i> Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'citas' %}"><i class="bi bi-calendar-fill"></i> Citas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'productos' %}"><i class="bi bi-box-seam-fill"></i> Productos</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-fill"></i> {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-person-gear"></i> Perfil</a></li>
+                            {% if user.is_superuser %}
+                            <li><a class=" dropdown-item" href="{% url 'categorias' %}"><i class="bi bi-tags-fill"></i>Categorias</a></li>
+                            <li><a class=" dropdown-item" href="{% url 'admin:index' %} "><i class="bi bi-person-vcard"></i> panel de administracion</a></li>
+                            {% endif %}
+                            <li><hr class="dropdown-divider"></li>
+                            <form action="{% url 'logout' %}" method="POST">{% csrf_token %}<button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-left"></i> Cerrar Sesión</button"></form>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}"><i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'registro' %}"><i class="bi bi-person-add"></i> Registrarse</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% endblock navbar %}
+
+    <div class="main-content">
+        <div class="container">
+            {% block mensajes %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endblock mensajes %}
+            
+            {% block contenido %}
+            CONTENIDO BASE 
+            
+            {% endblock contenido %}
+        </div>
+    </div>
+
+    {% block footer %}
+    <footer class="footer-custom py-4  fixed-bottom ">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">© 2024 Veterinaria. Todos los derechos reservados.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-white me-3"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    {% endblock footer %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    {% block extra_js %}{% endblock extra_js %}
+</body>
+</html>

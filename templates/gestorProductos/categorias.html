@@ -1,0 +1,97 @@
+{% extends 'base/base.html' %}
+
+{% block titulo %}
+Categorías - Veterinaria
+{% endblock titulo %}
+
+{% block contenido %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">
+            <i class="bi bi-folder2 me-2"></i>
+            Categorías
+        </h2>
+        {% if user.is_authenticated and user.is_staff %}
+        <a href="{% url 'agregar_categoria' %}" class="btn btn-primary">
+            <i class="bi bi-plus me-2"></i>Nueva Categoría
+        </a>
+        {% endif %}
+    </div>
+
+    {% if categorias %}
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Fecha de Creación</th>
+                        <th>Última Actualización</th>
+                        {% if user.is_authenticated and user.is_staff %}
+                        <th class="text-end">Acciones</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for categoria in categorias %}
+                    <tr>
+                        <td class="align-middle">
+                            <i class="bi bi-folder2-open text-primary me-2"></i>
+                            {{ categoria.nombre }}
+                        </td>
+                        <td class="align-middle">{{ categoria.descripcion }}</td>
+                        <td class="align-middle">{{ categoria.created_at|date:"d/m/Y H:i" }}</td>
+                        <td class="align-middle">{{ categoria.updated_at|date:"d/m/Y H:i" }}</td>
+                        {% if user.is_authenticated and user.is_staff %}
+                        <td class="text-end">
+                            <div class="btn-group">
+                                <a href="{% url 'editar_categoria' categoria.id %}" class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ categoria.id }}">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+
+                            <div class="modal fade" id="deleteModal{{ categoria.id }}" tabindex="-1">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Confirmar eliminación</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ¿Está seguro que desea eliminar la categoría "{{ categoria.nombre }}"?
+                                            <p class="text-danger mb-0 mt-2">
+                                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                                Esta acción también eliminará todos los productos asociados a esta categoría.
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <form action="{% url 'eliminar_categoria' categoria.id %}" method="post" class="d-inline">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        <i class="bi bi-info-circle me-2"></i>
+        No hay categorías registradas.
+    </div>
+    {% endif %}
+</div>
+{% endblock contenido %}
+  

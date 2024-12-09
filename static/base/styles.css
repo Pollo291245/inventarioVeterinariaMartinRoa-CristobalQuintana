@@ -1,0 +1,39 @@
+:root {
+    --primary-blue: #1E88E5;
+    --secondary-blue: #1565C0;
+    --dark: #333333;
+    --light: #FFFFFF;
+}
+
+.navbar-custom {
+    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link {
+    color: var(--light);
+}
+
+.navbar-custom .nav-link:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.footer-custom {
+    background: var(--dark);
+    color: var(--light);
+}
+
+.main-content {
+    min-height: calc(100vh - 160px);
+    padding: 2rem 0;
+}
+
+.btn-primary {
+    background-color: var(--primary-blue);
+    border-color: var(--primary-blue);
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-blue);
+    border-color: var(--secondary-blue);
+}

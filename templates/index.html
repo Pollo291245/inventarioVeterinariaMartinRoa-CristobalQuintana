@@ -1,0 +1,52 @@
+{% extends 'base/base.html' %}
+
+{% block contenido %}
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <h1 class="display-4 text-center">Bienvenido a Veterinaria M.I.R.A</h1>
+        {% if user.is_authenticated %}
+          <p class="lead text-center">Hola {{ user.username }}, gracias por visitarnos.</p>
+        {% else %}
+          <p class="lead text-center">Somos una veterinaria que se preocupa por la salud y bienestar de tus mascotas.</p>
+        {% endif %}
+      </div>
+    </div>
+    <section class="services-section align-items-center py-5" id="nservicios">
+        <div class="container">
+            <h2 class="text-center mb-5" style="color: var(--color3);">Nuestros Servicios</h2>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="bi bi-star-fill" style="font-size: 2rem; color: var(--color2);"></i>
+                            <h5 class="card-title">servicios</h5>
+                            <p class="card-text">Explora todo lo que tenemos para ofrecerte.</p>
+                            <a href="{% url 'servicios' %}" class="btn btn-outline-primary">Ver más</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="bi bi-calendar-fill" style="font-size: 2rem; color: var(--color2);"></i>
+                            <h5 class="card-title">Citas</h5>
+                            <p class="card-text">Agenda tu cita con nosotros.</p>
+                            <a href="{% url 'citas' %}" class="btn btn-outline-primary">Ver más</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="bi bi-box-seam-fill" style="font-size: 2rem; color: var(--color2);"></i>
+                            <h5 class="card-title">productos</h5>
+                            <p class="card-text">Encuentra todo lo que necesitas para tu mascota.</p>
+                            <a href="{% url 'productos' %}" class="btn btn-outline-primary">Ver más</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock contenido %}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'gestorUsuario/styles.css' %}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <title>Login Veterinaria</title>
+</head>
+<body>
+  <div class="login-container">
+    <div class="logo-container">
+      <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#e8eaed"><path d="M480-481q-66 0-108-42t-42-108q0-66 42-108t108-42q66 0 108 42t42 108q0 66-42 108t-108 42ZM160-160v-94q0-38 19-65t49-41q67-30 128.5-45T480-420q62 0 123 15.5t127.92 44.69q31.3 14.13 50.19 40.97Q800-292 800-254v94H160Zm60-60h520v-34q0-16-9.5-30.5T707-306q-64-31-117-42.5T480-360q-57 0-111 11.5T252-306q-14 7-23 21.5t-9 30.5v34Zm260-321q39 0 64.5-25.5T570-631q0-39-25.5-64.5T480-721q-39 0-64.5 25.5T390-631q0 39 25.5 64.5T480-541Zm0-90Zm0 411Z"/></svg>
+    </div>
+    <div class="container">
+      <h2 class="titulo">Bienvenido a Veterinaria</h2>
+      <p class="subtitulo">Inicia sesión para continuar</p>
+      <form method="post" class="formulario login-form">
+        {% csrf_token %}
+        {% if form.errors %}
+          <div class="error-message">
+            {% if form.non_field_errors %}
+              {{ form.non_field_errors }}
+            {% endif %}
+            {% for field in form %}
+              {% if field.errors %}
+                {{ field.errors }}
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+        <div class="input-group">
+          <i class="bi bi-person input-icon"></i>
+          {{ form.username }}
+        </div>
+        <div class="input-group">
+          <i class="bi bi-lock-fill input-icon"></i>
+          {{ form.password }}
+        </div>
+        <button type="submit" class="btn-submit">
+          <i class="bi bi-box-arrow-in-right"></i>
+          Iniciar sesión
+        </button>
+      </form>
+      <div class="form-footer">
+        <p>¿No tienes una cuenta? <a href="{% url 'registro' %}" class="link-registro">Regístrate aquí</a></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
